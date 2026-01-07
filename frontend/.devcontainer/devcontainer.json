@@ -1,0 +1,22 @@
+{
+  "name": "Frontend DevContainer",
+  "build": {
+    //"context": "..",
+    "dockerfile": "../../docker/frontend/Dockerfile"
+  },
+  "workspaceFolder": "/workspaces/test-project/frontend",
+  "workspaceMount": "source=${localWorkspaceFolder}/..,target=/workspaces/test-project,type=bind",
+  //"workspaceFolder": "/app",
+  //"workspaceMount": "source=${localWorkspaceFolder},target=/app,type=bind",
+  "forwardPorts": [5173],
+  "postCreateCommand": "npm install",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "git.enabled": true,
+        "git.autoRepositoryDetection": "subFolders"
+      },
+      "extensions": ["dbaeumer.vscode-eslint", "esbenp.prettier-vscode", "esbenp.prettier-vscode"]
+    }
+  }
+}

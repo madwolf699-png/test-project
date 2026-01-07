@@ -1,0 +1,9 @@
+openapi: 3.0.3
+info:
+  title: 参照ドキュメント
+  version: 1.0.0
+  description: |
+    ## 関連ドキュメント
+    - [API仕様書](./api2.yml)
+
+paths: {}
