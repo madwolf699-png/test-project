@@ -18,6 +18,5 @@
       },
       "extensions": ["dbaeumer.vscode-eslint", "esbenp.prettier-vscode", "esbenp.prettier-vscode"]
     }
-  },
-  "remoteUser": "vscode"
+  }
 }
