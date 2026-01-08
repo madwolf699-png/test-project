@@ -11,6 +11,7 @@ build
 .prettierignore
 .prettierrc
 eslint.config.js
+frontend.code-workspace
 jsdoc.json
 package.json
 package-lock.json
