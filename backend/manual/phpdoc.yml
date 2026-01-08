@@ -8,7 +8,7 @@ info:
     ## 1. phpdocによるドキュメント作成
     - Visual Studio Codeでターミナルを開き、以下を実行。
       ```bash
-      vendor/bin/phpdoc -d <ファイル名> -t /var/www/html/docs
+      vendor/bin/phpdoc -d <ファイル名> -t /workspace/test-project/backend/docs
       ```
 
     ## 2. 作成されたドキュメントの確認
