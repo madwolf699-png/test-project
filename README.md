@@ -47,6 +47,7 @@ cd [project-root]
     ├    ├    └─ unit-test.yml
     ├    ├─ tests/
     ├    ├─ vendor/
+    ├    ├─ backend.code-workspace
     ├    ├─ index.php
     ├    └─ 各種設定ファイル
     ├─ docker/
@@ -72,6 +73,7 @@ cd [project-root]
     ├    ├    ├─ assets/
     ├    ├    ├─ pages/
     ├    ├    └─ tests/
+    ├    ├─ frontend.code-workspace
     ├    └─ 各種設定ファイル
     ├─ .env
     ├─ docker-compose.yml
@@ -120,7 +122,8 @@ cd [project-root]
 - コマンドプロンプトもしくは、PowerShellで以下を実行します。
   ```bash
   cd [project-root]/frontend
-  code .
+  code frontend.code-workspace
+
   ```
 
   ①「このフォルダ内のファイルの作成者を信頼しますか？」が表示された場合、
@@ -171,7 +174,7 @@ cd [project-root]
 - コマンドプロンプトもしくは、PowerShellで以下を実行します。
   ```bash
   cd [project-roota/backend]
-  code .
+  code backend.code-workspace
   ```
 
   ①「このフォルダ内のファイルの作成者を信頼しますか？」が表示された場合、

@@ -24,6 +24,6 @@
     "editor.defaultFormatter": "junstyle.php-cs-fixer",
     "editor.formatOnSave": true
   },
-  "dev.containers.defaultExtensions": [],
-  "remote.autoForwardPorts": true
+  //"dev.containers.defaultExtensions": [],
+  //"remote.autoForwardPorts": true
 }

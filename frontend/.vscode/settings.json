@@ -8,6 +8,6 @@
   "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
   "yaml.fold": false,
   "editor.folding": false,
-  "dev.containers.defaultExtensions": [],
-  "remote.autoForwardPorts": true
+  //"dev.containers.defaultExtensions": [],
+  //"remote.autoForwardPorts": true
 }
