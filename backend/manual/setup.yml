@@ -11,8 +11,8 @@ info:
     ## 1. Visual Studio Codeでの開発
     - **1.1 Visual Studio Codeを起動する。**
       ```bash
-      cd [project-root]
-      code backend
+      cd [project-root]/backend
+      code backend.code-workspace
       ```
       - DevContainetsへの接続が行われます。
 
