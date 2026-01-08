@@ -36,6 +36,8 @@ cd [project-root]
     ├    ├─ .devcontainer/
     ├    ├    └─ devcontainer.json
     ├    ├─ .phpdoc/
+    ├    ├─ .vscode/
+    ├    ├    └─ settings.json
     ├    ├─ coverage/
     ├    ├─ docs/
     ├    ├─ manual/
