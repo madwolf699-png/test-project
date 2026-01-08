@@ -4,20 +4,20 @@
 
 ## 0. Gitリポジトリ作成
 
-- git@github.com:[yourname]/[project-root].git
-- git@github.com:[yourname]/[project-root-backend].git
-- git@github.com:[yourname]/[project-root-frontend].git
+- git@github.com:[yourname]/[リポジトリ名].git
+- git@github.com:[yourname]/[リポジトリ名-backend].git
+- git@github.com:[yourname]/[リポジトリ名-frontend].git
 
 ## 1. backend / frontend を「独立したGitリポジトリ」にする
  - backend 側の作業
   ```bash
-  cd [project-root]/backend
+  cd [リポジトリ名]/backend
 
   git init
   git add .
   git commit -m "Initial commit (backend)"
   git branch -M main
-  git remote add origin git@github.com:[yourname]/[project-root-backend].git
+  git remote add origin git@github.com:[yourname]/[リポジトリ名-backend].git
   git push -u origin main
 
   .gitignore.srcを.gitignoreにリネーム
@@ -25,21 +25,21 @@
 
 - frontend 側の作業
   ```bash
-  cd [project-root]/frontend
+  cd [リポジトリ名]/frontend
 
   git init
   git add .
   git commit -m "Initial commit (frontend)"
   git branch -M main
-  git remote add origin git@github.com:[yourname]/[project-root-frontend].git
+  git remote add origin git@github.com:[yourname]/[リポジトリ名-frontend].git
   git push -u origin main
 
   .gitignore.srcを.gitignoreにリネーム
   ```
 
-## 2. project-root を親リポジトリにする
+## 2. [リポジトリ名] を親リポジトリにする
 ```bash
-cd [project-root]
+cd [リポジトリ名]
 git init
  ```
 
@@ -52,8 +52,8 @@ git init
 
 - submodule 追加
   ```bash
-  git submodule add git@github.com:[yourname]/[project-root-backend].git backend
-  git submodule add git@github.com:[yourname]/[project-root-frontend].git frontend
+  git submodule add git@github.com:[yourname]/[リポジトリ名-backend].git backend
+  git submodule add git@github.com:[yourname]/[リポジトリ名-frontend].git frontend
  ```
  
 - 退避していた中身を戻す（初回のみ）
@@ -69,14 +69,14 @@ git init
   git add .
   git commit -m "Add backend and frontend as submodules"
   git branch -M main
-  git remote add origin git@github.com:[yourname]/[project-root].git
+  git remote add origin git@github.com:[yourname]/[リポジトリ名].git
   git push -u origin main
 
   .gitignore.srcを.gitignoreにリネーム
   ```
 
 ## 4. clone する側の正しい手順
-git clone --recursive git@github.com:[yourname]/[project-root].git
+git clone --recursive git@github.com:[yourname]/[リポジトリ名].git
 もしくは後から：
 git submodule update --init --recursive
 

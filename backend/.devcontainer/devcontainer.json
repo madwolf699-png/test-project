@@ -21,5 +21,6 @@
         "xdebug.php-debug"
       ]
     }
-  }
+  },
+  "remoteUser": "vscode"
 }

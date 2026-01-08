@@ -6,12 +6,12 @@ info:
     本ドキュメントはfrontendのローカル開発環境の構築手順を示しています。
 
     ## 0.事前作業
-    - project-rootフォルダにある「README.md」の内容に記載されている作業が完了している事を確認して下さい。
+    - [リポジトリ名]フォルダにある「README.md」の内容に記載されている作業が完了している事を確認して下さい。
 
     ## 1. Visual Studio Codeでの開発
     - **1.1 Visual Studio Codeを起動する。**
       ```bash
-      cd [project-root]/frontend
+      cd [リポジトリ名]/frontend
       code frontend.code-workspace
       ```
       - DevContainetsの接続が行われます。

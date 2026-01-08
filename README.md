@@ -25,13 +25,13 @@
 ## 1. リポジトリ取得
 以下のように開発環境を取得して下さい。
 ```bash
-git clone git@github.com:[yourname]/[project-root].git
-cd [project-root]
+git clone git@github.com:[yourname]/[リポジトリ名].git
+cd [リポジトリ名]
  ```
 
 ## 2. ディレクトリ構成
 
-    [project-root]/
+    [リポジトリ名]/
     ├─ backend/　⇒　VScodeでのソース修正対象
     ├    ├─ .devcontainer/
     ├    ├    └─ devcontainer.json
@@ -87,26 +87,26 @@ cd [project-root]
 
   ①新規にセットアップする場合
   ```bash
-    cd [project-root]
+    cd [リポジトリ名]
     docker compose up --build -d
   ```
   ※ネットワーク環境により、およそ数十分程度かかる場合があります。
 
-  ②同じ[project-root]を更新セットアップする場合
+  ②同じ[リポジトリ名]を更新セットアップする場合
   ```bash
-    cd [project-root]
+    cd [リポジトリ名]
     docker compose build --no-cache
     docker compose up -d
   ```
 　　※ネットワーク環境により、およそ数十分程度かかる場合があります。
 
   - 以下のdockerイメージが作成されます。
-    - [project-root]-frontend
-    - [project-root]-backend
+    - [リポジトリ名]-frontend
+    - [リポジトリ名]-backend
 
   - 以下のdockerコンテナが起動されます。
-    - [project-root]-frontend
-    - [project-root]-backend
+    - [リポジトリ名]-frontend
+    - [リポジトリ名]-backend
 
   - 以下にアクセスし画面が正しく表示される事。
     - http://localhost:5173
@@ -121,7 +121,7 @@ cd [project-root]
   - Dev Containers　⇒　Microsoft
 - コマンドプロンプトもしくは、PowerShellで以下を実行します。
   ```bash
-  cd [project-root]/frontend
+  cd [リポジトリ名]/frontend
   code frontend.code-workspace
 
   ```
@@ -147,9 +147,13 @@ cd [project-root]
   ⑤DevContainersへの接続が自動実行され、Visual Studio Codeが再起動されます。
     - npm installのよる必要パッケージのインストールが行われます。
     - ※初めての場合は、しばらく時間がかかります。（初回時）
-    - ターミナルでの表示が以下のようになっていればOKです。(/app#)
+    - ターミナルでの表示が以下のようになっていればOKです。(/workspace/test-project/frontend#)
       ```bash
       oot@4b35f2c24944:/workspace/test-project/frontend#
+      ```
+    - ターミナルで以下を実行します。（Gitソース管理では必須）
+      ```bash
+      git remote set-url origin https://github.com/[yourname]/[リポジトリ名].git
       ```
 
 - 拡張機能で以下のものをインストールする
@@ -162,7 +166,7 @@ cd [project-root]
 
   - 以下のマニュアルを参照し、開発環境のセットアップを行ってください。
   ```bash
-  [project-root]/frontend/manual/setup.yml
+  [リポジトリ名]/frontend/manual/setup.yml
   ```
   ※上記マニュアルは OpenAPI SwaggerUI preview で表示してください。（ Visual Studio Codeの右上にアイコンがあるばずです。）
 
@@ -173,7 +177,7 @@ cd [project-root]
   - Dev Containers | Microsoft
 - コマンドプロンプトもしくは、PowerShellで以下を実行します。
   ```bash
-  cd [project-roota/backend]
+  cd [リポジトリ名]/backend]
   code backend.code-workspace
   ```
 
@@ -198,9 +202,13 @@ cd [project-root]
   ⑤DevContainersへの接続が自動実行され、Visual Studio Codeが再起動されます。
     - 必要パッケージのインストールが行われます。
     - ※初めての場合は、しばらく時間がかかります。（初回時）
-    - ターミナルでの表示が以下のようになっていればOKです。(/var/www/html#)
+    - ターミナルでの表示が以下のようになっていればOKです。(/workspace/test-project/backend#)
       ```bash
       root@4b35f2c24944:/workspace/test-project/backend#
+      ```
+    - ターミナルで以下を実行します。（Gitソース管理では必須）
+      ```bash
+      git remote set-url origin https://github.com/[yourname]/[リポジトリ名].git
       ```
 
 - 拡張機能で以下のものをインストールする
@@ -215,6 +223,6 @@ cd [project-root]
 
   以下のマニュアルを参照し、開発環境のセットアップを行ってください。
   ```bash
-  [project-root]/backend/manual/setup.yml
+  [リポジトリ名]/backend/manual/setup.yml
   ```
   ※上記マニュアルは OpenAPI SwaggerUI preview で表示してください。（ Visual Studio Codeの右上にアイコンがあるばずです。）
