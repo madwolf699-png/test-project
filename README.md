@@ -25,7 +25,7 @@
 ## 1. リポジトリ取得
 以下のように開発環境を取得して下さい。
 ```bash
-git clone --recursive git@github.com:[yourname]/[project-root].git
+git clone git@github.com:[yourname]/[project-root].git
 cd [project-root]
  ```
 
