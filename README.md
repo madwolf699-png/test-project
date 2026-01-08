@@ -149,7 +149,7 @@ cd [project-root]
     - ※初めての場合は、しばらく時間がかかります。（初回時）
     - ターミナルでの表示が以下のようになっていればOKです。(/app#)
       ```bash
-      root@8f26eecda6a3:/app#
+      oot@4b35f2c24944:/workspace/test-project/frontend#
       ```
 
 - 拡張機能で以下のものをインストールする
@@ -200,7 +200,7 @@ cd [project-root]
     - ※初めての場合は、しばらく時間がかかります。（初回時）
     - ターミナルでの表示が以下のようになっていればOKです。(/var/www/html#)
       ```bash
-      root@c868a30cd101:/var/www/html#
+      root@4b35f2c24944:/workspace/test-project/backend#
       ```
 
 - 拡張機能で以下のものをインストールする
