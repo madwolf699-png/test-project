@@ -13,6 +13,7 @@ build
 eslint.config.js
 frontend.code-workspace
 jsdoc.json
+nginx.conf
 package.json
 package-lock.json
 README.md
