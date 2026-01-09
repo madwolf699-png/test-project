@@ -51,6 +51,17 @@ info:
       [リポジトリ名]/backend/coverage/index.html
       ```
 
+    ## 4. PHPUnitによる単体試験結果出力
+    - Visual Studio Codeでターミナルを開き、以下を実行。
+      - 特定のファイルの単体試験を実施する場合
+        ```bash
+        vendor/bin/phpunit ./tests/<ファイル名> --log-junit tests/result/junit.xml
+        ```
+      - 全ての単体試験を実施する場合
+        ```bash
+        vendor/bin/phpunit ./tests --log-junit tests/result/junit.xml
+        ```
+
     ## A. 参考URL
     - PHPUnit 公式サイト（トップページ）
       ```bash
