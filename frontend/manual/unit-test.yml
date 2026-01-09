@@ -43,6 +43,17 @@ info:
       [リポジトリ名]/frontend/coverage/index.html
       ```
 
+    ## 4. 実施された単体試験結果の出力
+    - 全ファイルの単体試験を実施する場合
+      ```bash
+      npx vitest run ./src/tests --reporter=junit --outputFile=./src/tests/reports/junit.xml
+      ```
+    - 特定のファイルの単体試験を実施する場合
+      ```bash
+      npx vitest run ./src/tests/<試験ファイル> --reporter=junit --outputFile=./src/tests/reports/junit.xml
+
+      ```
+
     ## A. 参考URL
     - Vitest 公式サイト（最新版ドキュメント）
       ```bash
