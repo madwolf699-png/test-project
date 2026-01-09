@@ -1,4 +1,6 @@
 docker
+k8s
+manual
 .env
 docker-compose.yml
 README.md
