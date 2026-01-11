@@ -165,9 +165,9 @@ cd [リポジトリ名]
   | ESLint | Microsoft | dbaeumer.vscode-eslint |
 
   - 以下のマニュアルを参照し、開発環境のセットアップを行ってください。
-  ```bash
-  [リポジトリ名]/frontend/manual/setup.yml
-  ```
+    ```bash
+    [リポジトリ名]/frontend/manual/setup.yml
+    ```
   ※上記マニュアルは OpenAPI SwaggerUI preview で表示してください。（ Visual Studio Codeの右上にアイコンがあるばずです。）
 
 ## 5.backend 開発のセットアップ手順
@@ -222,7 +222,7 @@ cd [リポジトリ名]
   | PHPStan | swordev | swordev.phpstan |
 
   以下のマニュアルを参照し、開発環境のセットアップを行ってください。
-  ```bash
-  [リポジトリ名]/backend/manual/setup.yml
-  ```
+    ```bash
+    [リポジトリ名]/backend/manual/setup.yml
+    ```
   ※上記マニュアルは OpenAPI SwaggerUI preview で表示してください。（ Visual Studio Codeの右上にアイコンがあるばずです。）

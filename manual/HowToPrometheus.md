@@ -1,8 +1,9 @@
-# プロジェクトのKubernetes登録
+# プロジェクトへのPrometheus導入
 
-このプロジェクト全体をはKubernetesに登録する手順について記載します。
+このプロジェクトにPrometheusを導入する手順について記載します。
 
-## 0. 全体構成
+## A1. Raspberry Pi 4 + Ubuntu
+- 全体構成
 Kubernetes (Raspberry Pi 4)
  ├─ prometheus (metrics収集)
  ├─ alertmanager
@@ -19,149 +20,243 @@ Kubernetes (Raspberry Pi 4)
   - Helm v3
   - ARM64対応（kube-prometheusstackは対応済）
 
-## 1. Helmのインストール
-```bash
-curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
-```
+- Helmのインストール
+  ```bash
+  curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+  ```
 
-## 2. Prometheus/Grafana用Namespace作成
-```bash
-kubectl create namespace monitoring
-```
+- Prometheus/Grafana用Namespace作成
+  ```bash
+  kubectl create namespace monitoring
+  ```
 
-## 3. Helmリポジトリ追加
-```bash
-helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-helm repo update
-```
+- Helmリポジトリ追加
+  ```bash
+  helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+  helm repo update
+  ```
 
-## 4. kube-prometheus-stackをインストール
-```bash
-helm install monitoring prometheus-community/kube-prometheus-stack \
-  -n monitoring
-```
+- kube-prometheus-stackをインストール
+  ```bash
+  helm install monitoring prometheus-community/kube-prometheus-stack \
+    -n monitoring
+  ```
 
-## 5.Pod起動確認
-```bash
-kubectl get pods -n monitoring
-```
+- Pod起動確認
+  ```bash
+  kubectl get pods -n monitoring
+  ```
 
-## 6.Grafanaへアクセスする（NodePort）
+- Grafanaへアクセスする（NodePort）
   - Grafana Serviceを確認
-  ```bash
-  kubectl get svc -n monitoring
-  ```
+    ```bash
+    kubectl get svc -n monitoring
+    ```
   - NodePortに変更（外部アクセス用）
-  ```bash
-  kubectl edit svc monitoring-grafana -n monitoring
+    ```bash
+    kubectl edit svc monitoring-grafana -n monitoring
 
-  spec:
-    type: NodePort
-  ```
+    spec:
+      type: NodePort
+    ```
   - ブラウザでアクセス
+    ```bash
+    http://<RaspberryPiのIP>:32000
+    ```
+
+-  Grafanaログイン情報
+  - 管理者パスワード取得
+    ```bash
+    kubectl get secret monitoring-grafana -n monitoring \
+    -o jsonpath="{.data.admin-password}" | base64 -d
+    ```
+
+- すでにダッシュボードは自動で入っている
+  - Kubernets Cluster Overview
+  - Node CPU/Memory/Disk
+  - Pod/Namespace使用量
+  - Service/Deployment状態
+
+- 自分のPod/Serviceを監視する
+  - Serviceにannotationsを追加
+    ```bash
+    metadata:
+    annotations:
+      prometheus.io/scrape: "true"
+      prometheus.io/port: "8080"
+    ```
+
+- Prometheusでメトリクス確認
   ```bash
-  http://<RaspberryPiのIP>:32000
+  kubectl port-forward svc/monitoring-kube-prometheus-stack-prometheus \
+    -n monitoring 9090:9090
+
+  http://localhost:9090
+  ```
+- Raspberry Pi 4 特有の注意点
+  - メモリ対策
+    - Pi 4（$GB以下）の場合
+      ```bash
+      kubectl edit deployment monitoring-kube-prometheus-stack-grafana -n monitoring
+
+      resources:
+        limits:
+          memory: "512Mi"
+        requests:
+          memory: "256Mi"
+      ```
+
+- 削除したい場合
+  ```bash
+  helm uninstall monitoring -n monitoring
+  kubectl delete namespace monitoring
   ```
 
-## 7. Grafanaログイン情報
-- 管理者パスワード取得
-```bash
-kubectl get secret monitoring-grafana -n monitoring \
-  -o jsonpath="{.data.admin-password}" | base64 -d
-```
+- Raspberry Pi 4向け
+  - 一度削除
+    ```bash
+    helm uninstall monitoring -n monitoring
+    kubectl delete namespace monitoring
+    ```
+  - 軽量values.yamlを作成
+    ```bash
+    grafana:
+      replicas: 1
+      resources:
+        requests:
+          cpu: 100m
+          memory: 200Mi
+        limits:
+          memory: 300Mi
 
-## 8. すでにダッシュボードは自動で入っている
-- Kubernets Cluster Overview
-- Node CPU/Memory/Disk
-- Pod/Namespace使用量
-- Service/Deployment状態
+    prometheus:
+      prometheusSpec:
+        replicas: 1
+        resources:
+          requests:
+            cpu: 200m
+            memory: 500Mi
+          limits:
+            memory: 800Mi
+        retention: 6h
 
-## 9. 自分のPod/Serviceを監視する
-- Serviceにannotationsを追加
-```bash
-metadata:
-  annotations:
-    prometheus.io/scrape: "true"
-    prometheus.io/port: "8080"
-```
+    alertmanager:
+      enabled: false
 
-## 10. Prometheusでメトリクス確認
-```bash
-kubectl port-forward svc/monitoring-kube-prometheus-stack-prometheus \
-  -n monitoring 9090:9090
+    kubeStateMetrics:
+      resources:
+        requests:
+          memory: 100Mi
+        limits:
+          memory: 200Mi
 
-http://localhost:9090
-```
-## A1. Raspberry Pi 4 特有の注意点
-- メモリ対策
-  - Pi 4（$GB以下）の場合
+    nodeExporter:
+      resources:
+        requests:
+          memory: 50Mi
+        limits:
+          memory: 100Mi
+    ```
+
+  - 軽量構成で再インストール
+    ```bash
+    kubectl create namespace monitoring
+
+    helm install monitoring prometheus-community/kube-prometheus-stack \
+    -n monitoring \
+    -f monitoring/prometheus-values.yaml
+    ```
+
+## A2. Windows 11 + Docker Desktop
+- 前提条件
+  - 必要なもの
+    - Windows 11
+    - Docker Desktop（最新版推奨）
+      - WSL2 backend 有効
+      - Docker Desktop が起動していること
   ```bash
-  kubectl edit deployment monitoring-kube-prometheus-stack-grafana -n monitoring
-
-  resources:
-  limits:
-    memory: "512Mi"
-  requests:
-    memory: "256Mi"
+  docker --version
+  docker compose version
   ```
+- 構成概要
+  ```bash
+  monitoring/
+  ├─ docker-compose.yml
+  └─ prometheus/
+     └─ prometheus.yml
+  ```
+  - Prometheus : http://localhost:9090
+  - Grafana : http://localhost:3000
+- 作業ディレクトリ作成
+  ```bash
+  mkdir monitoring
+  cd monitoring
+  mkdir prometheus
+  ```
+- Prometheus設定ファイル作成
 
-## A2. 削除したい場合
-```bash
-helm uninstall monitoring -n monitoring
-kubectl delete namespace monitoring
-```
+  monitoring/prometheus/prometheus.yml
+  ```bash
+  global:
+    scrape_interval: 15s
+    evaluation_interval: 15s
 
-## A3. Raspberry Pi 4向け
-- 一度削除
-```bash
-helm uninstall monitoring -n monitoring
-kubectl delete namespace monitoring
-```
-- 軽量values.yamlを作成
-```bash
-grafana:
-  replicas: 1
-  resources:
-    requests:
-      cpu: 100m
-      memory: 200Mi
-    limits:
-      memory: 300Mi
+  scrape_configs:
+    - job_name: "prometheus"
+      static_configs:
+        - targets: ["localhost:9090"]
+  ```
+- docker-compose.yml 作成
 
-prometheus:
-  prometheusSpec:
-    replicas: 1
-    resources:
-      requests:
-        cpu: 200m
-        memory: 500Mi
-      limits:
-        memory: 800Mi
-    retention: 6h
+  monitoring/docker-compose.yml
+  ```bash
+  version: "3.9"
 
-alertmanager:
-  enabled: false
+  services:
+    prometheus:
+      image: prom/prometheus:latest
+      container_name: prometheus
+      volumes:
+        - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+      ports:
+        - "9090:9090"
+      restart: unless-stopped
 
-kubeStateMetrics:
-  resources:
-    requests:
-      memory: 100Mi
-    limits:
-      memory: 200Mi
+    grafana:
+      image: grafana/grafana:latest
+      container_name: grafana
+      ports:
+        - "3000:3000"
+      restart: unless-stopped
+  ```
+- コンテナ起動
+  ```bash
+  docker ompose up -d
+  docker ps
+  ```
+- Prometheus動作確認
+  ```bash
+  http://localhost:9090
+  ```
+- Grafana動作確認
+  ```bash
+  http://localhost:3000
+  ```
+  - 初期ログイン
+    - ユーザー名：admin
+    - パスワード：admin
+    - 初回ログイン時に変更要求あり
+- Grafana に Prometheus をデータソースとして追加
+  - 手順
+    - Configuration
+    - Data sources
+    - Add data source
+    - Prometheus
+- ダッシュボード作成（簡単確認）
 
-nodeExporter:
-  resources:
-    requests:
-      memory: 50Mi
-    limits:
-      memory: 100Mi
-```
-
-- 軽量構成で再インストール
-```bash
-kubectl create namespace monitoring
-
-helm install monitoring prometheus-community/kube-prometheus-stack \
-  -n monitoring \
-  -f prometheus-values.yaml
-```
+Explore でテスト
+  - 左メニュー → Explore
+  - Metric：
+    - up
+  - Execute
+    - → up{job="prometheus"} = 1 が出ればOK

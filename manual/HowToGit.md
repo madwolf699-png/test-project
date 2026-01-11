@@ -1,6 +1,6 @@
 # プロジェクトのGit登録
 
-このプロジェクト全体をはGitに登録する手順について記載します。
+このプロジェクト全体をGitに登録する手順について記載します。
 
 ## 0. Gitリポジトリ作成
 
@@ -10,18 +10,18 @@
 
 ## 1. backend / frontend を「独立したGitリポジトリ」にする
  - backend 側の作業
-  ```bash
-  cd [リポジトリ名]/backend
+   ```bash
+   cd [リポジトリ名]/backend
 
-  git init
-  git add .
-  git commit -m "Initial commit (backend)"
-  git branch -M main
-  git remote add origin git@github.com:[yourname]/[リポジトリ名-backend].git
-  git push -u origin main
+   git init
+   git add .
+   git commit -m "Initial commit (backend)"
+   git branch -M main
+   git remote add origin git@github.com:[yourname]/[リポジトリ名-backend].git
+   git push -u origin main
 
-  .gitignore.srcを.gitignoreにリネーム
-  ```
+   .gitignore.srcを.gitignoreにリネーム
+   ```
 
 - frontend 側の作業
   ```bash
@@ -54,7 +54,7 @@ git init
   ```bash
   git submodule add git@github.com:[yourname]/[リポジトリ名-backend].git backend
   git submodule add git@github.com:[yourname]/[リポジトリ名-frontend].git frontend
- ```
+  ```
  
 - 退避していた中身を戻す（初回のみ）
   ```bash
