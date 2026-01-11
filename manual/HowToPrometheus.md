@@ -255,9 +255,61 @@ Kubernetes (Raspberry Pi 4)
     - Prometheus
 - ダッシュボード作成（簡単確認）
 
-Explore でテスト
-  - 左メニュー → Explore
-  - Metric：
-    - up
-  - Execute
-    - → up{job="prometheus"} = 1 が出ればOK
+  Explore でテスト
+    - 左メニュー → Explore
+    - Metric：
+      - up
+    - Execute
+      - → up{job="prometheus"} = 1 が出ればOK
+- 削除する場合
+  ```bash
+  docker compose down --rmi all -v
+  ```
+
+## A3. Windows 11 + Docker Desktop
+- Helmをインストール
+  ```bash
+  winget install Helm.Helm
+  helm version
+  ```
+- Helm repo追加
+  ```bash
+  helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+  helm repo update
+  ```
+-monitoring namespace作成
+  ```bash
+  kubectl create namespace monitoring
+  ```
+- kube-prometheus-stack インストール
+  ```bash
+  helm install monitoring prometheus-community/kube-prometheus-stack --namespace monitoring
+  ```
+- 起動確認
+  ```bash
+  kubectl get pods -n monitoring
+
+  prometheus-monitoring-kube-prometheus-prometheus-0   Running
+  alertmanager-monitoring-kube-prometheus-alertmanager-0 Running
+  monitoring-grafana-xxxxx                              Running
+  ```
+- Grafanaへアクセス
+  ```bash
+  kubectl port-forward -n monitoring svc/monitoring-grafana 3000:80
+
+  http://localhost:3000
+  ```
+- ログイン情報
+  ```bash
+  kubectl get secret -n monitoring monitoring-grafana -o jsonpath="{.data.admin-password}" | base64 --decode
+
+  以下はPoweShellで
+  $pwd = kubectl get secret -n monitoring monitoring-grafana -o jsonpath="{.data.admin-password}"
+  [System.Text.Encoding]::UTF8.GetString(
+    [System.Convert]::FromBase64String($pwd)
+  )
+  ```
+
+  ※adminのパスワードが表示される。
+
+- 
