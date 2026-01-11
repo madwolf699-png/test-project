@@ -231,7 +231,8 @@ Kubernetes (Raspberry Pi 4)
   ```
 - コンテナ起動
   ```bash
-  docker ompose up -d
+  cd monitoring
+  docker compose up -d
   docker ps
   ```
 - Prometheus動作確認
