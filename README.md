@@ -75,6 +75,21 @@ cd [リポジトリ名]
     ├    ├    └─ tests/
     ├    ├─ frontend.code-workspace
     ├    └─ 各種設定ファイル
+    ├─ k8s/
+    ├    ├─ backend/
+    ├    ├    ├─ configmap.yaml
+    ├    ├    ├─ deployment.yaml
+    ├    ├    └─ service.yaml
+    ├    └─ frontend/
+    ├          ├─ deployment.yaml
+    ├          └─ service.yaml
+    ├─ manual/
+    ├    ├─ HowToDocker.md
+    ├    ├─ HowToGit.md
+    ├    ├─ HowToKubernetes.md
+    ├    ├─ HowToPrometheus.md
+    ├    └─ HowToVSCode.md
+    ├─ monitoring/
     ├─ .env
     ├─ docker-compose.yml
     └─ README.md　⇒　本ファイル
