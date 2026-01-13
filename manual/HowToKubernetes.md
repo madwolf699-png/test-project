@@ -10,7 +10,7 @@ docker save [repository-name]-backend:latest -o [repository-name]-backend.tar
 docker save [repository-name]-frontend:latest -o [repository-name]-frontend.tar
 ```
 
-## 1. containerに登録する場合(inuxn等)
+## 1. containerに登録する場合(Linuxn等)
 - kubernetesと同じマシンに登録する場合
   - Namespace
     ```bash

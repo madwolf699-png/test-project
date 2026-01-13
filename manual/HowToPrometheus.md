@@ -312,4 +312,22 @@ Kubernetes (Raspberry Pi 4)
 
   ※adminのパスワードが表示される。
 
-- 
+- values.yaml を使って再インストール
+  ```bash
+  kubelet:
+    serviceMonitor:
+      https: true
+      insecureSkipVerify: true
+  ```
+- 再インストール
+  ```bash
+  helm upgrade --install monitoring prometheus-community/kube-prometheus-stack -n monitoring --create-namespace -f values.yaml
+  ```
+
+## B. 主な Pod 単位メトリクス
+| 内容 | メトリクス名 |
+|------|--------------|
+| CPU使用率 | container_cpu_usage_seconds_total |
+| メモリ使用量 | container_memory_usage_bytes |
+| 再起動回数 | kube_pod_container_status_restarts_total |
+| 状態 | kube_pod_status_phase |
