@@ -324,6 +324,13 @@ Kubernetes (Raspberry Pi 4)
   helm upgrade --install monitoring prometheus-community/kube-prometheus-stack -n monitoring --create-namespace -f values.yaml
   ```
 
+- Prometheus Targetsを確認
+  ```bash
+  kubectl port-forward svc/monitoring-kube-prometheus-prometheus 9090:9090 -n monitoring
+
+  http://localhost:9090/targets
+  ```
+
 ## B. 主な Pod 単位メトリクス
 | 内容 | メトリクス名 |
 |------|--------------|

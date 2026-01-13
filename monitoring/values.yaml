@@ -1,4 +1,6 @@
 kubelet:
+  enabled: true
   serviceMonitor:
+    enabled: true
     https: true
     insecureSkipVerify: true
