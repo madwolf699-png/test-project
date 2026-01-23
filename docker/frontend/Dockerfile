@@ -1,5 +1,8 @@
 FROM ubuntu:24.04
 
+# タイムゾーンを日本時間に設定
+ENV TZ=Asia/Tokyo
+
 ENV DEBIAN_FRONTEND=noninteractive
 
 #IPv6を強制的に無効化
