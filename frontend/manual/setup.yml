@@ -33,4 +33,12 @@ info:
       - unit-test.yml
         - 単体試験に関するマニュアル
 
+    ## 2. 必要なライブラリ
+    - YAML → TypeScript型を自動生成する
+      ```bash
+      npm install -D openapi-typescript
+      生成は、
+      npx openapi-typescript manual/api.yml -o src/api/types.tsx
+      ```
+
 paths: {}
