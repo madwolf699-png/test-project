@@ -31,7 +31,7 @@ export default [
     rules: {
       camelcase: ['error', { properties: 'always' }],
       eqeqeq: ['error', 'always'],
-      indent: ['error', 2],
+      indent: ['error', 2, { SwitchCase: 1 }],
       'no-console': 'warn',
       'no-debugger': 'error',
       'no-trailing-spaces': 'error',
